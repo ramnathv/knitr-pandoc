@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <meta name="author" content="Ramnath Vaidyanathan" />
+  <title>Using Pandoc with knitR</title>
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Using Pandoc with knitR</h1>
+<h2 class="author">Ramnath Vaidyanathan</h2>
+</div>
+<p>This is a short example illustrating how to use <code>knitr</code> with <code>pandoc</code> to write a single document in <code>markdown</code> and have it rendered in multiple formats, especially <code>pdf</code> and <code>html</code>. For the purposes of illustration, I have chosen two code chunks, one generating a plot and the other generating a table to illustrate the power of <code>pandoc</code> + <code>knitr</code>.</p>
+<p>We first need to tell <code>knitr</code> to render the output of code chunks in the <code>gfm</code> format, which <code>pandoc</code> will understand.</p>
+<p>The chunk below is a plot chunk. You need to have the package <code>ggplot2</code> installed for it to work.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
+<span class="kw">qplot</span>(wt, mpg, <span class="dt">data =</span> mtcars)</code></pre>
+<div class="figure">
+<img src="fig/plot-chunk.png" alt="plot of chunk plot-chunk" /><p class="caption">plot of chunk plot-chunk</p>
+</div>
+<p>The second chunk produces a table. You need to have the package <code>ascii</code> installed for this to work.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ascii)
+x &lt;- <span class="kw">head</span>(mtcars[, <span class="dv">1</span>:<span class="dv">5</span>])
+<span class="kw">options</span>(<span class="dt">asciiType =</span> <span class="st">&quot;pandoc&quot;</span>)
+<span class="kw">ascii</span>(x)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="left"><strong>mpg</strong></th>
+<th align="left"><strong>cyl</strong></th>
+<th align="left"><strong>disp</strong></th>
+<th align="left"><strong>hp</strong></th>
+<th align="left"><strong>drat</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Mazda RX4</td>
+<td align="left">21.00</td>
+<td align="left">6.00</td>
+<td align="left">160.00</td>
+<td align="left">110.00</td>
+<td align="left">3.90</td>
+</tr>
+<tr class="even">
+<td align="left">Mazda RX4 Wag</td>
+<td align="left">21.00</td>
+<td align="left">6.00</td>
+<td align="left">160.00</td>
+<td align="left">110.00</td>
+<td align="left">3.90</td>
+</tr>
+<tr class="odd">
+<td align="left">Datsun 710</td>
+<td align="left">22.80</td>
+<td align="left">4.00</td>
+<td align="left">108.00</td>
+<td align="left">93.00</td>
+<td align="left">3.85</td>
+</tr>
+<tr class="even">
+<td align="left">Hornet 4 Drive</td>
+<td align="left">21.40</td>
+<td align="left">6.00</td>
+<td align="left">258.00</td>
+<td align="left">110.00</td>
+<td align="left">3.08</td>
+</tr>
+<tr class="odd">
+<td align="left">Hornet Sportabout</td>
+<td align="left">18.70</td>
+<td align="left">8.00</td>
+<td align="left">360.00</td>
+<td align="left">175.00</td>
+<td align="left">3.15</td>
+</tr>
+<tr class="even">
+<td align="left">Valiant</td>
+<td align="left">18.10</td>
+<td align="left">6.00</td>
+<td align="left">225.00</td>
+<td align="left">105.00</td>
+<td align="left">2.76</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>
